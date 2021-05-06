@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>选择水果</title>
+    <style>
+        #box1,#box2{
+            width: 200px;
+            height: 250px;
+            background-color: paleturquoise;
+            text-align: center;
+            font-size: 30px;
+            margin: 0 20px;
+        }
+    </style>
+</head>
+<body>
+<select multiple="multiple" id="box1">
+    <option>苹果</option>
+    <option>梨子</option>
+    <option>樱桃</option>
+    <option>橘子</option>
+    <option>草莓</option>
+</select>
+<button id="left">&gt;&gt;</button>
+<button id="left_one">&gt;</button>
+<button id="right_one">&lt;</button>
+<button id="right">&lt;&lt;</button>
+
+<select multiple="multiple" id="box2"></select>
+<script>
+    window.onload = function () {
+        var list1 = $("box1").children;
+        $("left").onclick = function () {
+            while (list1.length){
+                $("box2").appendChild(list1[0]);
+            }
+        };
+        $("left_one").onclick = function () {
+           for (var i=0;i<list1.length;i++){
+               if (list1[i].selected) {
+                   $("box2").appendChild(list1[i]);
+                   console.log(i,list1[i].selected);
+               }else continue;
+           }
+            re( list1)
+            re( list2)
+
+        };
+
+        var list2 = $("box2").children;
+        $("right").onclick = function () {
+            while (list2.length){
+                $("box1").appendChild(list2[0]);
+            }
+         };
+
+    };
+
+    function $(id) {
+        return typeof id?document.getElementById(id):null;
+    }
+    function re( list1) {
+        for (var i=0;i<list1.length;i++){
+            list1[i].selected = false;
+        }
+    }
+</script>
+</body>
+</html>

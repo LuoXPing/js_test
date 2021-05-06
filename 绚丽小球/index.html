@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>绚丽小球</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        body,html{
+            width: 100%;
+            height: 100%;
+            background-color: #000;
+        }
+        #box{
+            width: 100%;
+            height: 100%;
+            position: relative;
+        }
+    </style>
+</head>
+<body>
+<div id="box">
+
+</div>
+<script src="js/Underscore-min.js"></script>
+<script src="js/INDEX.js"></script>
+<script>
+    var box = document.getElementById("box");
+    var colorArr = ['red','pink','green','blue','paleturquoise','palegoldenrod','purple','yellow'];
+    var BallArr = [];
+    box.onmousemove = function (event) {
+        var e = event|| window.event;
+        var cIndex = _.random(0,colorArr.length-1);
+        obj = {
+            Y:e.clientY-30 ,
+            X:e.clientX -30,
+            bac: colorArr[cIndex],
+            parentId:'box'
+        };
+        var ball = new Ball(obj);
+
+
+        BallArr.push(ball);
+    }
+    setInterval(function () {
+        var box = document.getElementById("box");
+        for (var j=0;j<box.children.length;j++){
+            box.children[j].remove();
+        }
+        for (var i=0;i<BallArr.length;i++){
+            BallArr[i].change();
+            BallArr[i].play();
+        }
+
+    },100)
+</script>
+</body>
+</html>

@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<style>
+    *{
+        margin: 0;
+        padding: 0;
+    }
+    #header{
+        margin: 10px 0 15px 10px;
+    }
+    #content{
+
+        position: relative;
+    }
+    #content .box{
+        width: 220px;
+        height: 360px;
+        background-color: #eee;
+        margin: 0 10px 10px 0;
+    }
+    #content .box p:last-child{
+        color: orange;
+    }
+</style>
+<body>
+<div id="header">
+    <button>3列</button>
+    <button>4列</button>
+    <button>5列</button>
+</div>
+<div id="content">
+    <div class="box">
+        <img src="images/1.jpg" alt="">
+        <p>因为遇见你</p>
+        <p>孙怡邓伦牵手演绎刺绣奇缘</p>
+    </div>
+    <div class="box">
+        <img src="images/2.jpg" alt="">
+        <p>因为遇见你</p>
+        <p>孙怡邓伦牵手演绎刺绣奇缘</p>
+    </div>
+    <div class="box">
+        <img src="images/3.jpg" alt="">
+        <p>因为遇见你</p>
+        <p>孙怡邓伦牵手演绎刺绣奇缘</p>
+    </div>
+    <div class="box">
+        <img src="images/4.jpg" alt="">
+        <p>因为遇见你</p>
+        <p>孙怡邓伦牵手演绎刺绣奇缘</p>
+    </div>
+    <div class="box">
+        <img src="images/5.jpg" alt="">
+        <p>因为遇见你</p>
+        <p>孙怡邓伦牵手演绎刺绣奇缘</p>
+    </div>
+    <div class="box">
+        <img src="images/6.jpg" alt="">
+        <p>因为遇见你</p>
+        <p>孙怡邓伦牵手演绎刺绣奇缘</p>
+    </div>
+    <div class="box">
+        <img src="images/7.jpg" alt="">
+        <p>因为遇见你</p>
+        <p>孙怡邓伦牵手演绎刺绣奇缘</p>
+    </div>
+    <div class="box">
+        <img src="images/8.jpg" alt="">
+        <p>因为遇见你</p>
+        <p>孙怡邓伦牵手演绎刺绣奇缘</p>
+    </div>
+    <div class="box">
+        <img src="images/9.jpg" alt="">
+        <p>因为遇见你</p>
+        <p>孙怡邓伦牵手演绎刺绣奇缘</p>
+    </div>
+    <div class="box">
+        <img src="images/10.jpg" alt="">
+        <p>因为遇见你</p>
+        <p>孙怡邓伦牵手演绎刺绣奇缘</p>
+    </div>
+    <div class="box">
+        <img src="images/11.jpg" alt="">
+        <p>因为遇见你</p>
+        <p>孙怡邓伦牵手演绎刺绣奇缘</p>
+    </div>
+    <div class="box">
+        <img src="images/12.jpg" alt="">
+        <p>因为遇见你</p>
+        <p>孙怡邓伦牵手演绎刺绣奇缘</p>
+    </div>
+    <div class="box">
+        <img src="images/13.jpg" alt="">
+        <p>因为遇见你</p>
+        <p>孙怡邓伦牵手演绎刺绣奇缘</p>
+    </div>
+    <div class="box">
+        <img src="images/14.jpg" alt="">
+        <p>因为遇见你</p>
+        <p>孙怡邓伦牵手演绎刺绣奇缘</p>
+    </div>
+    <div class="box">
+        <img src="images/15.jpg" alt="">
+        <p>因为遇见你</p>
+        <p>孙怡邓伦牵手演绎刺绣奇缘</p>
+    </div>
+</div>
+<script>
+    window.onload =function () {
+       var btnList = $("header").children;
+       var box = $("content").getElementsByClassName("box");
+       btnList[0].onclick = function () {
+           j_f(3);
+           };
+        btnList[1].onclick = function () {
+            j_f(4);
+        };
+        btnList[2].onclick = function () {
+            j_f(5);
+        };
+        function j_f(boxColumn) {
+            var boxW=220,boxH=360,margin=15,boxColumn;
+            for ( var i=0; i<box.length; i++ ){
+                var row = parseInt(i/boxColumn)  ;
+                var col = parseInt(i%boxColumn) ;
+                box[i].style.position = 'absolute';
+                box[i].style.left = col*( boxW + margin )+'px';
+                box[i].style.top = row*(boxH + margin)+'px';
+           }
+       }
+    };
+    function $(id) {
+        return typeof id == 'string'?document.getElementById(id):null;
+    }
+</script>
+</body>
+</html>

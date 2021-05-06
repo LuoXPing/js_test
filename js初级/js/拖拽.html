@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        #box{
+            width: 400px;
+            height: 300px;
+            border: 2px solid #ccc;
+            box-shadow: 2px 2px 2px 2px #ccc ;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            margin-top: -200px;
+            margin-left: -150px;
+        }
+        #header{
+            width: 100%;
+            height: 10%;
+            background-color: rgba(0,0,0,0.2);
+            cursor: move;
+        }
+        #header span{
+            position: absolute;
+            right: 5px;
+            top: 2px;
+            font-size: 20px;
+            color: #fff;
+            cursor: pointer;
+            display: inline-block;
+        }
+        #content{
+            width: 100%;
+            height: 90%;
+        }
+    </style>
+</head>
+<body>
+<div id="box">
+    <div id="header">
+        <span>×</span>
+    </div>
+    <div id="content"></div>
+</div>
+<script>
+    window.onload = function () {
+        var header = document.getElementById("header");
+        var box = document.getElementById("box");
+        header.onmousedown = function (event) {
+            var e = event || window.event;
+            var X = (e.pageX ||e.clientX+scroll().left) - box.offsetLeft;
+            var Y = (e.pageY||e.clientX+scroll().top) - box.offsetTop;
+            console.log(e.pageX,e.pageY,box.offsetLeft,box.offsetTop,X,Y);
+            document.onmousemove = function (event) {
+                var e = event || window.event;
+                var loginX = e.pageX - X;
+                var loginY = e.pageY - Y;
+                box.style.left =  loginX  +150+'px';
+                box.style.top = loginY +200+'px';
+                console.log(e.pageX,e.pageY,box.style.left,box.style.top  );
+            }
+        }
+        document.onmouseup = function () {
+            document.onmousemove = null;
+        }
+    }
+</script>
+
+</body>
+</html>

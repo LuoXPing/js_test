@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+       body{
+           background-color: #000;
+       }
+        #test{
+           width: 720px;
+           height: 400px;
+           margin: 100px auto;
+            border: 1px solid red;
+           position: relative;
+            overflow: hidden;
+       }
+        #picture{
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+        #to-top,#to-bottom{
+            width: 100%;
+            height: 50%;
+            position: absolute;
+            left: 0;
+            cursor: pointer;
+        }
+       #to-top{
+           top: 0;
+       }
+       #to-bottom{
+           bottom: 0;
+       }
+     
+    </style>
+</head>
+<body>
+<div id="test">
+    <img id="picture" src="images/timg.jpg" alt="">
+    <span id="to-top"></span>
+    <span id="to-bottom"></span>
+</div>
+
+</body>
+<script>
+    window.onload = function () {
+        var box = document.getElementById("test");
+        var pic = document.getElementById("picture");
+        var top = document.getElementById("to-top");
+        var bottom = document.getElementById("to-bottom");
+        var timer=null , num = 0;
+        top.onmouseover = function () {
+            clearInterval(timer);
+            timer = setInterval(
+                function () {
+                    num -= 5;
+                    if ( num >= -2466){
+                        pic.style.top  = num + 'px';
+                        console.log(pic.style.top);
+                    }
+                    else{
+                        clearInterval(timer);
+                    }
+                },20)
+        };
+        bottom.onmouseover = function () {
+            clearInterval(timer);
+            timer = setInterval(
+                function () {
+                    num += 5;
+                    if ( num <= 0){
+                        pic.style.top = num + 'px';
+                    }
+                    else{
+                        clearInterval(timer);
+                    }
+                },20)
+        };
+        box.onmouseleave = function () {
+            clearInterval(timer);
+
+        }
+    }
+</script>
+</html>

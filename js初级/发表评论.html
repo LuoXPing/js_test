@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<style>
+    *{
+        margin: 0;
+        padding: 0;
+        list-style: none;
+    }
+    #box{
+        width: 600px;
+        margin: 50px auto;
+        border: 1px solid #ccc;
+        padding: 20px;
+    }
+    #box #box-header{
+        margin-bottom: 30px;
+    }
+    #box #box-header #text{
+        width: 95%;
+        margin:10px;
+    }
+    #box #box-header button{
+        float:right;
+        margin-right: 20px;
+    }
+    #box #ul{
+       padding: 0  20px;
+    }
+    #box #ul li{
+        color: red;
+        line-height: 40px;
+        border-bottom: 1px dashed #ccc;
+        padding-bottom: 10px;
+    }
+    #box #ul li a{
+        float: right;
+    }
+
+</style>
+<body>
+<div id="box">
+    <div id="box-header">
+        <lael>发表评论：</lael>
+        <br>
+        <textarea rows="15" cols="80" id="text"></textarea>
+        <br>
+        <button id="btn">发表</button>
+    </div>
+    <ul id="ul"></ul>
+
+</div>
+
+<script>
+    window.onload = function () {
+        $("btn").onclick = function () {
+            var content = $("text").value;
+            var li = document.createElement("li");
+            li.innerHTML = content +'<a href="javascript:;">删除</a>';
+            $("ul").insertBefore(li,$("ul").getElementsByTagName("li")[0]);
+            $("text").value='';
+            var aList = $("ul").getElementsByTagName("a");
+            for (var i=0; i<aList.length ; i++){
+                var a = aList[i];
+                a.onclick = function () {
+                    this.parentNode.remove();
+                }
+            }
+        }
+    };
+
+    function $(id) {
+        return typeof id === 'string' ?document.getElementById(id):null;
+    };
+
+</script>
+</body>
+</html>

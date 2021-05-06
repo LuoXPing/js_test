@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<style>
+    #box{
+        width: 100px;
+        height: 100px;
+        background-color: red;
+        margin-top: 20px;
+    }
+</style>
+<body>
+<button id="btn">开始运动</button>
+<div id="box"></div>
+<script>
+    window.onload = function () {
+        var star = 0 ,end=800 ;
+        var timer = null;
+        $('btn').onclick = function () {
+            timer = setInterval(
+                function () {
+                    star += (end - star)*0.5;
+                    console.log(star);
+                    if ( star >=end ){
+                        star = end;
+                        clearInterval(timer);
+                    }
+                    $('box').style.marginLeft = star +'px';
+                },100
+            )
+
+        }
+    };
+    function $(id) {
+        return typeof id == 'string'?document.getElementById(id):null;
+    };
+</script>
+</body>
+</html>

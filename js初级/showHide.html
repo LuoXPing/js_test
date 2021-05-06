@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<style>
+    *{
+        margin: 50px 50px;
+    }
+    img{
+        width: 200px;
+        height: 200px;
+    }
+</style>
+<body>
+<button class="hide">隐藏</button>
+<div class="box">
+    <img src="images/icon1.jpg" alt="">
+</div>
+
+<script>
+    var box = document.getElementsByClassName("box")[0];
+    var hide = document.getElementsByClassName("hide")[0];
+    window.onload = function () {
+        hide.onclick = function () {
+            if ( hide.innerText == "隐藏") {
+                hide.innerText = "显示"
+                box.style.display = "none";
+            }
+            else {
+                hide.innerText = "隐藏"
+                box.style.display = "block";
+            }
+        }
+    }
+</script>
+</body>
+</html>

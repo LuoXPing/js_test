@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+        body{
+            background-color: pink;
+        }
+        #box{
+            width: 900px;
+            height: 63px;
+            background: url("image/doubleOne.png") no-repeat right center #fff;
+            margin: 100px auto;
+            border-radius: 5px;
+            position: relative;
+        }
+        #box ul{
+            position: relative;
+        }
+        #box ul li{
+            width: 88px;
+            height: 63px;
+            line-height: 70px;
+            text-align: center;
+            float: left;
+            cursor: pointer;
+        }
+        #box span{
+            width: 88px;
+            height: 63px;
+            position: absolute;
+            background: url("image/tMall.png") no-repeat;
+        }
+    </style>
+</head>
+<body>
+<div id="box">
+    <span ></span>
+    <ul id="AllLi">
+        <li>双11狂欢</li>
+        <li>服装会场</li>
+        <li>数码家电</li>
+        <li>家具建材</li>
+        <li>母婴童装</li>
+        <li>手机会场</li>
+        <li>美妆会场</li>
+        <li>进口会场</li>
+        <li>飞猪旅行</li>
+    </ul>
+</div>
+<script>
+    window.onload = function () {
+        var box = document.getElementById("box");
+        var pic = box.children[0];
+        var ul = box.children[1];
+        var list = ul.children;
+        var beginX = 0;
+
+        console.log(list);
+        for (var i=0;i<list.length;i++){
+            var li = list[i];
+            li.onmouseover = function () {
+                end = this.offsetLeft;
+            };
+            li.onmouseleave = function () {
+                end = beginX;
+            };
+            li.onmousedown = function () {
+               beginX = this.offsetLeft;
+            };
+        }
+        var star = 0;
+        var end = 0;
+        setInterval(function () {
+
+            star += (end-star)*0.5;
+            pic.style.left = star +'px';
+
+        },10)
+
+    }
+</script>
+</body>
+</html>

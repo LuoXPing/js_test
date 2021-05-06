@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<style>
+    .box{
+        width: 300px;
+        height: 300px;
+    }
+    .box .btn{
+        position: fixed;
+        left: 10px;
+        top: 50%;
+        width: 50px;
+        height: 50px;
+    }
+    .box .it{
+        width: 200px;
+        height: 200px;
+        position: fixed;
+        left: 80px;
+        top: 40%;
+        display: none;
+    }
+</style>
+<body>
+<div class="box">
+    <img class="btn"  src="images/qq.png" alt="">
+    <img class="it" src="images/itlike.png" alt="">
+</div>
+
+<script>
+    var box = document.getElementsByClassName("box")[0];
+    var picture = document.getElementsByClassName("it")[0];
+    window.onload = function () {
+       box.onmouseover = function () {
+           picture.style.display = "block";
+       }
+        box.onmouseleave = function () {
+            picture.style.display = "none";
+        }
+    }
+</script>
+</body>
+</html>

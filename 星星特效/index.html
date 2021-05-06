@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<style>
+    *{
+        margin: 0;
+        padding: 0;
+    }
+    body{
+        background-color: #000;
+        position: relative;
+    }
+    span{
+        width: 30px;
+        height: 30px;
+        background: url("image/star.png") no-repeat;
+        background-size: 100% 100% ;
+        position: absolute;
+        left: 0;
+        top: 0;
+        animation:  flash 1s alternate infinite;
+    }
+    @keyframes flash {
+        0%{ opacity: 0;}
+        100%{opacity: 1}
+    }
+    span:hover{
+        transform: scale(3,3) rotate(180deg)!important;
+        transition: 1s;
+    }
+</style>
+<body>
+</body>
+<script>
+    window.onload = function () {
+        var screenW = document.documentElement.clientWidth;
+        var screenH = document.documentElement.clientHeight;
+        for (var i=0;i<200; i++){
+            var width = parseInt(Math.random()*screenW);
+            var height = parseInt(Math.random()*screenH);
+            var span=document.createElement("span");
+            document.body.appendChild(span);
+            span.style.left = width +'px';
+            span.style.top = height +'px';
+
+            var scale = Math.random()*1.5;
+            span.style.transform = 'scale('+scale+','+scale+')'
+
+            var rate = Math.random()*1.5;
+            span.style.animationDelay = rate +'s';
+        }
+
+    }
+</script>
+</html>

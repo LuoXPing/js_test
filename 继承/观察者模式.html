@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script type="text/html">
+    lk ={
+        /*待广播的人*/
+        user:[],
+        /*添加人*/
+        addUser:function (user,action) {
+            var obj = {"user":user,"action":action};
+            this.user.push(obj);
+        },
+        /*广播*/
+        publish: function () {
+            for (var i=0; i<this.user.length ; i++){
+                var target = this.user[i].user;
+                var action = this.user[i].action;
+                action.call(target,"明天不上课");
+            }
+        }
+    }
+    function get() {
+        console.log("已收到,"+this.name);
+    }
+    var stu1 = {name:"张三"};
+    var stu2 = {name:"李四"};
+    lk.addUser(stu1,get);
+    lk.addUser(stu2,get);
+    lk.publish()
+</script>
+<script>
+    lk ={
+        /*待广播的人*/
+        user:{},
+        /*添加人*/
+        addUser:function (type,user,action) {
+            if( !this.user[type] ){
+                this.user[type] = [];
+            }
+            var obj = {"user":user,"action":action};
+            this.user[type].push(obj);
+        },
+        /*广播*/
+        publish: function (type,msg) {
+            for (var i=0;i<this.user[type].length;i++){
+                var target = this.user[type][i].user;
+                var action = this.user[type][i].action;
+                action.call(target,msg);
+            }
+        }
+    }
+    function get() {
+        console.log("已收到,"+this.name);
+    }
+    var stu1 = {name:"张三"};
+    var stu2 = {name:"李四"};
+    lk.addUser('java',stu1,get);
+    lk.addUser('h3',stu1,get);
+    lk.addUser('java',stu2,get);
+    lk.addUser('python',stu1,get);
+    lk.publish('python','java不上课');
+</script>
+</body>
+</html>

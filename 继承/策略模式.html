@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    run ={
+        slow:function (distance) {
+            console.log("慢速跑步，速度为"+distance/10);
+        },
+        normal:function (distance) {
+            console.log("常速跑步，速度为"+distance/5);
+        },
+        quick:function (distance) {
+            console.log("快速跑步，速度为"+distance/2);
+        }
+    }
+    function Person(from,to) {
+        this.from = from;
+        this.to = to;
+    }
+    Person.prototype.PersonRun = function (action) {
+        action(this.from-this.to);
+    }
+    var P1 = new Person(200,100);
+    P1.PersonRun(run.slow);
+    P1.PersonRun(run.normal);
+    P1.PersonRun(run.quick);
+</script>
+
+</body>
+</html>

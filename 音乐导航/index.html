@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<style>
+    *{
+        margin: 0;
+        padding: 0;
+        list-style: none;
+    }
+    a{
+        text-decoration: none;
+        color: #000;
+    }
+    #nav{
+        width: 900px;
+        height: 40px;
+        border: 1px solid #ccc;
+        margin: 100px auto;
+        overflow: hidden;
+    }
+    #nav ul{
+        width: 910px;
+        height: 100%;
+        position: relative;
+    }
+    #nav ul li{
+        float: left;
+        width: 100px;
+        height: 100%;
+        line-height: 40px;
+        background: url("images/_r1_c1.png") no-repeat 0 0;
+        border-right: 1px dashed #ccc;
+        position: relative;
+    }
+    #nav ul li a{
+        width: 100px;
+        height: 45px;
+        display: inline-block;
+        text-align: center;
+    }
+    span{
+        width: 100px;
+        height: 40px;
+        background-color: skyblue;
+        position: absolute;
+        left: 0;
+        top: 40px;
+        z-index: -1;
+
+    }
+</style>
+<body>
+<nav id="nav">
+    <ul id="ul">
+        <li><a href="">首页</a><span></span><audio src="source/a1.mp3"></audio></li>
+        <li><a href="">新头条</a><span></span><audio src="source/a2.mp3"></audio></li>
+        <li><a href="">电视剧</a><span></span><audio src="source/a3.mp3"></audio></li>
+        <li><a href="">新电影</a><span></span><audio src="source/a4.mp3"></audio></li>
+        <li><a href="">小游戏</a><span></span><audio src="source/a5.mp3"></audio></li>
+        <li><a href="">小说绘</a><span></span><audio src="source/a6.mp3"></audio></li>
+        <li><a href="">旅游假</a><span></span><audio src="source/a7.mp3"></audio></li>
+        <li><a href="">正品购</a><span></span><audio src="source/a8.mp3"></audio></li>
+        <li><a href="">今日团</a><span></span><audio src="source/a9.mp3"></audio></li>
+    </ul>
+</nav>
+<script src="js/myFunc.js"></script>
+<script>
+    window.onload = function () {
+        var AllLis =$("ul").children;
+        //换背景
+        for (var i=0;i<AllLis.length;i++){
+            AllLis[i].style.backgroundPosition =' 0 '+ i * -40 + 'px';
+            //鼠标进入
+            AllLis[i].onmouseover =function () {
+                buffer(this.children[1],{"top":0});
+                this.children[2].play();
+                this.children[2].currentTime=0;
+
+            }
+            AllLis[i].onmouseleave  =function () {
+                buffer(this.children[1],{"top":40});
+            }
+        }
+        document.onkeydown = function (event) {
+            var e = event||window.event;
+            var keyCode = e.keyCode-49;
+            buffer( AllLis[keyCode].children[1],{"top":0});
+            AllLis[keyCode].children[2].play();
+            AllLis[keyCode].children[2].currentTime=0;
+        }
+        document.onkeyup = function (event) {
+            var e = event||window.event;
+            var keyCode = e.keyCode-49;
+            buffer( AllLis[keyCode].children[1],{"top":40});
+
+        }
+    }
+</script>
+
+</body>
+</html>

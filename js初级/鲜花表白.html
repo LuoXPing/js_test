@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        body{
+            background-color: #000;
+        }
+        #time{
+            width: 50px;
+            height: 50px;
+            color: red;
+            font-size: 150px;
+            margin: 50px auto;
+        }
+        #picture{
+            width: 100px;
+            height: 150px;
+            display: none;
+            margin: 100px 250px;
+        }
+    </style>
+</head>
+
+<body>
+<div id="time">5</div>
+<div id="picture"><img src="images/flower.gif" alt=""></div>
+</body>
+<script>
+    window.onload = function () {
+       var timer = setInterval(function () {
+                $('time').innerText -=1;
+                if ( $('time').innerText == 0 ){
+                    clearInterval(timer);
+                    $('time').style.display = 'none';
+                    $('picture').style.display = 'block';
+                }
+         },1000)
+    };
+    function $(id) {
+        return typeof id === 'string'?document.getElementById(id):null;
+
+    }
+</script>
+</html>

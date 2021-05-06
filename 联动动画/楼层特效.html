@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>楼层特效</title>
+</head>
+<style>
+    *{
+        margin: 0;
+        padding: 0;
+        list-style: none;
+    }
+    html, body, ul{
+        width: 100%;
+        height: 100%;
+    }
+    #content li{
+        width: 100%;
+        height: 100%;
+        text-align: center;
+        font-size: 30px;
+        color: paleturquoise;
+    }
+    #point{
+        position: fixed;
+        left: 30px;
+        top: 200px;
+        border: 1px solid #fff;
+        width: 70px;
+        background-color: #e8e8e8;
+    }
+    #point li{
+        width: 100%;
+        text-align: center;
+        line-height: 30px;
+        border-bottom: 1px solid #fff;
+        cursor: pointer;
+    }
+    .current{
+        background-color: orangered;
+    }
+</style>
+<body>
+<ol id="point">
+    <li class="current">第1层</li>
+    <li>第2层</li>
+    <li>第3层</li>
+    <li>第4层</li>
+    <li>第5层</li>
+</ol>
+<ul id="content">
+    <li>第1层内容</li>
+    <li>第2层内容</li>
+    <li>第3层内容</li>
+    <li>第4层内容</li>
+    <li>第5层内容</li>
+</ul>
+<script src="js/myFunc.js"></script>
+<script>
+    window.onload = function () {
+        //设定颜色
+        var colorArr = ["pink","lightgreen","darkorchid","cornflowerblue","tomato"];
+        var Alli = $("content").children;
+        var isClick = false;
+        for (var i = 0; i<Alli.length ; i++){
+            Alli[i].style.backgroundColor = colorArr[i];
+        }
+        //点击
+        var AllMenu = $("point").children;
+        for (var i=0 ; i<AllMenu.length ;i++){
+            var menu = AllMenu[i];
+            (function (index) {
+                menu.onclick = function () {
+                    isClick = true;
+                   //变换颜色
+                    for (var j=0 ; j<AllMenu.length ;j++){
+                        AllMenu[j].className = '';
+                    }
+                    this.className = 'current';
+                    //滚动
+                    bubble(document.documentElement,{"scrollTop":index*client().height},function () {
+                        isClick = false;
+                    });
+                }
+            })(i)
+        }
+        //移动
+        window.onscroll = function () {
+            if (!isClick){
+                var ScrollTop = Math.ceil(scroll().top);
+                for (var i = 0; i<Alli.length ; i++){
+                    console.log(i,"----------",Alli[i].offsetTop,ScrollTop);
+                    if (Alli[i].offsetTop < ScrollTop ){
+                        for (var j=0 ; j<AllMenu.length ;j++){
+                            AllMenu[j].className = '';
+                        }
+                        AllMenu[i].className = 'current';
+                    }
+                }
+            }
+
+
+        }
+
+    }
+</script>
+
+</body>
+</html>

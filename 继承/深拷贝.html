@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    // 1. 要拷贝的对象
+    var obj = {
+        name: '撩课',
+        age: 18,
+        friends: ['小花', '小黑'],
+        goodF: {
+            name: '小撩',
+            age: 19,
+            adress: '上海',
+            pets: [{name: '土豆'}, {name: '马铃薯'}]},
+        bir: new Date()
+    };
+
+    function DeepCopy(obj,newobj) {
+        for (var key in obj){
+            var value = obj[key];
+            console.log(key,value);
+            if( !isObj( !value ) ){
+                newobj[key] = value;
+            } else{
+                var temp = new value.constructor;
+                DeepCopy(value,temp);
+                newobj[key] = temp;
+            }
+        }
+    }
+
+    function isObj(object){
+        return object instanceof Object;
+    };
+
+    newobj={};
+
+    DeepCopy(obj,newobj);
+    console.log(newobj);
+</script>
+</body>
+</html>

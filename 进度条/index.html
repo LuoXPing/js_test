@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<style>
+    #process{
+        width: 1000px;
+        height: 35px;
+        margin: 100px auto;
+        line-height: 35px;
+    }
+    #bar{
+        width: 950px;
+        height: 35px;
+        background-color: #e8e8e8;
+        float: left;
+        border-radius: 8px;
+        position: relative;
+    }
+    #bar_pro{
+        background-color: orange;
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 0px;
+        height: 35px;
+        border-top-left-radius: 8px;
+        border-bottom-left-radius: 8px;
+    }
+    #bar span{
+        width: 30px;
+        height: 55px;
+        background-color: orange;
+        position: absolute;
+        left:0;
+        top: -32%;
+        border-radius: 5px;
+    }
+    #bar_value{
+        float: right;
+    }
+</style>
+<body>
+<div id="process">
+    <div id="bar">
+        <div id="bar_pro"></div>
+        <span ></span>
+    </div>
+    <div id="bar_value">0%</div>
+</div>
+<script>
+    window.onload = function () {
+        var process = document.getElementById("process");
+        var bar = process.children[0];
+        var bar_pro = bar.children[0];
+        var bar_span = bar.children[1];
+        var value = process.children[1];
+
+        bar.onmousedown = function (event) {
+            var event = event||window.event;
+            var offsetleft = event.clientX - bar.offsetLeft;
+            document.onmousemove = function ( event ) {
+                var event = event||window.event;
+                var x = event.clientX - offsetleft;
+                if ( x <= 0 ){
+                    x = 0;
+                }else if( x >= bar.offsetWidth - bar_span.offsetWidth){
+                    x = bar.offsetWidth - bar_span.offsetWidth;
+                }
+                bar_pro.style.width = x +'px';
+                bar_span.style.left = x +'px';
+
+                var num = parseInt(  x / (bar.offsetWidth-bar_span.offsetWidth) * 100);
+                value.innerHTML = num +'%';
+                return false;
+            };
+            document.onmouseup = function () {
+                document.onmousemove = null;
+
+            }
+
+        }
+
+
+
+    }
+</script>
+
+</body>
+</html>

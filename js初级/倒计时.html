@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+       #test{
+           width: 800px;
+           height: 100px;
+           margin: 20px auto;
+           font-size: 30px;
+           color: red;
+           text-align: center;
+       }
+    </style>
+</head>
+<body>
+<div id="test"></div>
+
+</body>
+<script>
+    window.onload = function () {
+        var nextTime = new Date("2019/4/2 20:36:00");
+        var nextSecond = nextTime.getTime();
+        var title = document.getElementById("test");
+        var timer = setInterval(
+            function(){
+                var currentTime = new Date();
+                var currentSecond = currentTime.getTime();
+                var second = parseInt( ( nextSecond -currentSecond )/1000 );
+                var day = parseInt(second /3600 /24);
+                var hour =parseInt(second /3600 % 24);
+                var min = parseInt(second /60 %60);
+                var sec =parseInt(second  % 60 );
+                title.innerText = "距离放假还有"+day+"天"+hour+"小时"+min+"分钟"+sec+"秒";
+                if (day == 0 && hour == 0 && min == 0  && sec == 0) {
+                    clearInterval(timer);
+                    title.innerText = "已经放假啦";
+                }
+            },1000
+        )
+
+
+    }
+</script>
+</html>

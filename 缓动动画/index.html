@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        body，html{
+            position: relative;
+        }
+        #box{
+            width: 100px;
+            height: 100px;
+            position: absolute;
+            left: 10px;
+            top: 40px;
+            background-color: red;
+        }
+    </style>
+</head>
+<body>
+<button id="left">向左走</button>&nbsp;&nbsp;
+<button id="right">向右走</button>
+<div id="box"></div>
+<script src="js/myFunc.js"></script>
+<script>
+    window.onload = function () {
+        $("right").onclick = function () {
+            bubble($("box"),{"left":800,"top":400,"width":200,"border-radius":50,"opacity":0.3},function () {
+                bubble($("box"),{"left":300,"top":100,"width":100,"opacity":0.6,"border-radius":5},function() {
+                    bubble($("box"),{"left":700,"top":200,"width":200,"height":200,"opacity":0.9,"border-radius":100});
+                });
+            })
+        }
+        $("left").onclick = function () {
+            bubble($("box"),{"left":200})
+        }
+    };
+
+
+
+
+</script>
+</body>
+</html>

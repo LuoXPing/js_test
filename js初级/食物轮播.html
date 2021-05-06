@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+        #box{
+            width: 322px;
+            height: 250px;
+            border: 1px solid #ccc;
+            margin: 100px auto;
+            overflow: hidden;
+        }
+        #center{
+            width: 200px ;
+            height: 250px;
+            float: left;
+        }
+        #center img{
+            width: 200px;
+            height: 250px;
+        }
+        #box #left,#box #right{
+            border-right: 1px solid #ccc;
+            float: left;
+            width: 60px;
+            height: 250px;
+        }
+        #box #left a,#box #right a{
+            color: #000;
+            text-decoration: none;
+
+        }
+        #box #left li,#box #right li{
+            height: 27px;
+            line-height: 27px;
+            text-align: center;
+            border-bottom: 1px solid #ccc;
+        }
+        #box #left li:last-child,#box #right li:last-child{
+            border-bottom: none;
+        }
+       .select{
+            background-color: red;
+        }
+    </style>
+</head>
+<body>
+<div id="box">
+
+    <ul id="left">
+        <li class="select"><a href="#">美食1</a></li>
+        <li><a href="#">美食2</a></li>
+        <li><a href="#">美食3</a></li>
+        <li><a href="#">美食4</a></li>
+        <li><a href="#">美食5</a></li>
+        <li><a href="#">美食6</a></li>
+        <li><a href="#">美食7</a></li>
+        <li><a href="#">美食8</a></li>
+        <li><a href="#">美食9</a></li>
+    </ul>
+    <div id="center">
+            <a><img src="image/img1.jpg" alt=""></a>
+            <a><img src="image/img2.jpg" alt=""></a>
+            <a><img src="image/img3.jpg" alt=""></a>
+            <a><img src="image/img4.jpg" alt=""></a>
+            <a><img src="image/img5.jpg" alt=""></a>
+            <a><img src="image/img6.jpg" alt=""></a>
+            <a><img src="image/img7.jpg" alt=""></a>
+            <a><img src="image/img8.jpg" alt=""></a>
+            <a><img src="image/img9.jpg" alt=""></a>
+            <a><img src="image/img10.jpg" alt=""></a>
+            <a><img src="image/img11.jpg" alt=""></a>
+            <a><img src="image/img12.jpg" alt=""></a>
+            <a><img src="image/img19.jpg" alt=""></a>
+            <a><img src="image/img14.jpg" alt=""></a>
+            <a><img src="image/img15.jpg" alt=""></a>
+            <a><img src="image/img16.jpg" alt=""></a>
+            <a><img src="image/img17.jpg" alt=""></a>
+            <a><img src="image/img18.jpg" alt=""></a>
+    </div>
+    <ul id="right">
+        <li><a href="#">美食10</a></li>
+        <li><a href="#">美食11</a></li>
+        <li><a href="#">美食12</a></li>
+        <li><a href="#">美食13</a></li>
+        <li><a href="#">美食14</a></li>
+        <li><a href="#">美食15</a></li>
+        <li><a href="#">美食16</a></li>
+        <li><a href="#">美食17</a></li>
+        <li><a href="#">美食18</a></li>
+    </ul>
+
+</div>
+<script>
+    window.onload = function () {
+       var list = document.getElementsByTagName("li");
+       var imgList = $("center").getElementsByTagName("a")
+        console.log(list);
+        var loop = 0;
+        var timer = setInterval(
+            function () {
+                loop +=1;
+                loop = loop % 18;
+                for (var i=0; i<list.length; i++){
+                    list[i].className = "";
+                    imgList[i].style.display = 'none';
+                }
+                list[loop].className = "select";
+                imgList[loop].style.display = 'block';
+
+            },1000
+        )
+    };
+    function $(id) {
+        return typeof id == 'string'?document.getElementById(id):null;
+    }
+</script>
+</body>
+</html>

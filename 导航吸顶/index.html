@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<style>
+    *{
+        margin: 0;
+        padding: 0;
+        border: none;
+    }
+    img{
+        width: 100%;
+        vertical-align: top;
+    }
+    section{
+        width: 70%;
+        margin: 0 auto;
+    }
+    .nav{
+        position: fixed;
+        left: 0;
+        top: 0;
+
+    }
+</style>
+<body>
+<script src="js/myFunc.js"></script>
+<header><img src="images/top.png" alt=""></header>
+<nav id="lan"><img src="images/nav.png" alt=""></nav>
+<section><img src="images/body01.png" alt=""></section>
+<section><img src="images/body02.png" alt=""></section>
+<script>
+    window.onload = function () {
+        var nav_Height = $("lan").offsetTop;
+        window.onscroll = function () {
+            var scrollH = scroll().top;
+            if (nav_Height <= scrollH){
+                $("lan").className = "nav";
+            }
+            else{
+                $("lan").className = "";
+            }
+
+        }
+
+
+    }
+</script>
+</body>
+</html>

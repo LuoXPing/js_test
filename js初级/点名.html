@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<style>
+   #test{
+       width: 200px;
+       height: 200px;
+       margin: 0 auto;
+       text-align: center;
+   }
+   #test #name{
+       margin-top: 20px;
+       padding: 10px;
+       background-color: red;
+   }
+   #test button{
+       margin-left: 20px;
+   }
+</style>
+<body>
+<div id="test">
+    <button id="start">开始点名</button>
+    <button id="stop">停止点名</button>
+    <div id="name">张三</div>
+</div>
+<script>
+    window.onload = function () {
+        var begin = document.getElementById("start");
+        var stop = document.getElementById("stop");
+        var name = document.getElementById("name");
+        var names = ['张三','李四','王五','赵烨','叶子','西苏','荷好','四大','发的'];
+        var timer =null;
+        begin.onclick = function () {
+            clearInterval(timer);
+            timer = setInterval(
+               function () {
+                   var index = parseInt( Math.random()*names.length );
+                   name.innerText = names[index];
+               },10
+           );
+        };
+        stop.onclick = function () {
+            clearInterval(timer);
+        };
+
+    }
+
+
+</script>
+</body>
+</html>

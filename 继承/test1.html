@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>继承</title>
+</head>
+<body>
+<script>
+    function Person (name,age){
+        this.name = name;
+        this.age = age;
+    }
+    Person.prototype.run = function () {
+        console.log("跑步");
+    };
+    Person.prototype.eat = function () {
+        console.log("吃饭");
+    };
+
+    function Student (classNumber,name,age){
+       Person.call(this,name,age);
+       this.classNumber = classNumber;
+    }
+    function Test(){}
+    Test.prototype = Person.prototype;
+    var StudentPrototype = new Test();
+    Student.prototype = StudentPrototype;
+    StudentPrototype.constructor = Student;
+    Student.prototype.study = function () {
+        console.log("学习");
+    };
+
+
+    var student = new Student("1班","张三",18);
+    student.run();
+    console.log(student.name);
+
+</script>
+
+</body>
+</html>

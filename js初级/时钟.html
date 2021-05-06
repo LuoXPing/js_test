@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+       #test{
+           width: 600px;
+           height: 600px;
+           margin: 20px auto;
+           background: url("images/clock.jpg") no-repeat center center;
+           position: relative;
+       }
+        #hour,#sec,#min{
+            width: 50px;
+            height: 250px;
+            position: absolute;
+            left: 46%;
+            top: 30%;
+            transform-style: flat;
+        }
+        #hour{
+            background: url("images/hour.png") no-repeat center center;
+        }
+       #min{
+           background: url("images/minute.png") no-repeat center center;
+       }
+       #sec{
+           background: url("images/second.png") no-repeat center center;
+       }
+    </style>
+</head>
+<body>
+<div id="test">
+    <div id="hour"></div>
+    <div id="min"></div>
+    <div id="sec"></div>
+</div>
+
+</body>
+<script>
+    window.onload = function () {
+
+        var hour = document.getElementById("hour");
+        var min = document.getElementById("min");
+        var sec = document.getElementById("sec");
+
+        var timer = setInterval(function () {
+            var date = new Date();
+            var mSecond = date.getMilliseconds();
+            var s = date.getSeconds() + mSecond/1000;
+            var m = date.getMinutes() + s/60;
+            var h = date.getHours() % 12 + m/60;
+            hour.style.transform = 'rotate('+ h * 30+'deg)';
+            min.style.transform  = 'rotate('+ m * 6+'deg)';
+            sec.style.transform  = 'rotate('+ s * 6+'deg)';
+            },10);
+
+
+    }
+</script>
+</html>

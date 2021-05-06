@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<style>
+    *{
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        border: none;
+    }
+    img{
+        vertical-align: top;
+    }
+    #box{
+        position: fixed;
+        right: 0;
+        bottom: 0;
+    }
+    span{
+        width: 20px;
+        height: 20px;
+        position: absolute;
+        right: 3px;
+        top: 3px;
+        cursor: pointer;
+    }
+</style>
+<body>
+<div id="box">
+    <div id="top">
+        <span id="mask"></span>
+        <img src="images/top.jpg" alt="">
+    </div>
+    <div id="bottom">
+        <img src="images/bottom.jpg" alt="">
+    </div>
+</div>
+<script src="js/myFunc.js"></script>
+<script>
+    window.onload = function () {
+        $("mask").onclick = function () {
+            bubble($("bottom"),{"height":0},function () {
+                bubble($("box"),{"width":0},function () {
+                    $("mask").style.display = 'none';
+                });
+            });
+
+        }
+
+    }
+</script>
+</body>
+</html>

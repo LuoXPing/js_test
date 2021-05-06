@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<style>
+    #box{
+        width: 200px;
+        height: 200px;
+        background-color: palegreen;
+        position: absolute;
+        left: 0;
+        top: 50px;
+    }
+</style>
+<body>
+<button id="left">往左走</button>&nbsp;
+<button id="right">往右走</button>
+<div id="box"></div>
+<script src="js/myFunc.js"></script>
+<script>
+    window.onload = function () {
+        $("left").onclick = function () {
+            constant($("box"),600,10)
+        }
+        $("right").onclick = function () {
+            constant($("box"),300,10)
+        }
+
+    }
+</script>
+</body>
+</html>

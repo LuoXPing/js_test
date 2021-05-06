@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<style>
+    #box{
+        width: 320px;
+        height: 568px;
+        margin: 0 auto;
+        position: relative;
+        background: url("img/bg.png");
+    }
+    #fly{
+        width: 32px;
+        height: 24px;
+        position: absolute;
+        left: 20px;
+        top:600px;
+        background: url("img/me.png");
+    }
+</style>
+<body>
+<div id="box"></div>
+<div id="fly"></div>
+<script>
+    var box = document.getElementById("box");
+
+    /*飞机跟着动*/
+    document.onmousemove = function (event) {
+        var flyme = document.getElementById("fly");
+        var boxLeft = box.offsetLeft;
+        var boxTop = box.offsetTop;
+        var e = event || window.event;
+        var checkX = e.clientX >= boxLeft &&e.clientX <= boxLeft+box.offsetWidth-flyme.offsetWidth;
+        var checkY = e.clientY >= boxTop &&e.clientY<= boxTop + box.offsetHeight-flyme.offsetWidth/2;
+        if(checkX && checkY){
+            flyme.style.left = e.clientX +'px';
+            flyme.style.top = e.clientY +'px';
+            flyme.flag = true;
+          }
+    };
+    /*创建子弹*/
+    var bulletM = {
+        bg:'url("img/b.png")',
+        name:"bullet",
+        num:1,
+        width:6,
+        height:14,
+        arr:[]/*id | top | left */
+    }
+    function  CreateBufferM(obj){
+        var flyme = document.getElementById("fly");
+       setInterval(function () {
+           if ( flyme.flag ) {
+               var bul = document.createElement("div");
+               bul.id = obj.name +obj.num;
+               if (obj.arr.length < 50) {
+                   bul.style.width = obj.width +'px';
+                   bul.style.height = obj.height +'px';
+                   bul.style.background = obj.bg;
+                   obj.num ++;
+                   /*定位*/
+                   var buffLeft = flyme.offsetLeft + flyme.offsetWidth/2 - bul.offsetWidth/2;
+                   var buffTop = flyme.offsetTop - obj.height;
+                   bul.style.position = 'absolute';
+                   bul.style.left = buffLeft +'px';
+                   bul.style.top = buffTop+'px';
+                   /*添加到数组*/
+                   var length=obj.arr.length;
+                   obj.arr[length] = bul.id +'|'+ buffTop + '|' + buffLeft;
+               }
+               document.body.appendChild(bul);
+
+           }},1000)
+    }
+    CreateBufferM(bulletM);
+    /*让子弹运动*/
+    function moveBullet(){
+        for (var i=0;i<bulletM.arr.length ;i++){
+            var  newArr = bulletM.arr[i].split('|');
+            /*获得div*/
+            var bullet = document.getElementById(newArr[0]);
+            newArr[1] = parseInt(newArr[1])-1;
+            bullet.style.top = newArr[1] +'px';
+            bulletM.arr[i] = newArr[0] +'|'+newArr[1] +'|'+ newArr[2];
+            if (newArr[1] < bullet.offsetHeight){
+                bullet.parentNode.removeChild(bullet);
+                bulletM.arr.splice(i,1);
+            }
+
+        }
+    }
+    /*创建敌机*/
+    var flyD = {
+        bg:'url("img/foe.png")',
+        name:"flyD",
+        num:1,
+        width:34,
+        height:24,
+        arr:[]/*id | top | left */
+    }
+    function  CreateflyD(obj){
+        var flyme = document.getElementById("fly");
+        setInterval(function () {
+            if ( flyme.flag ) {
+                var bul = document.createElement("div");
+                bul.id = obj.name +obj.num;
+                if (obj.arr.length < 50) {
+                    bul.style.width = obj.width +'px';
+                    bul.style.height = obj.height +'px';
+                    bul.style.background = obj.bg;
+                    obj.num ++;
+                    /*定位*/
+                    var buffLeft =box.offsetLeft+ Math.random()*(box.offsetWidth-17);
+                    var buffTop = 0;
+                    bul.style.position = 'absolute';
+                    bul.style.left = buffLeft +'px';
+                    bul.style.top = buffTop+ 'px';
+                    /*添加到数组*/
+                    var length=obj.arr.length;
+                    obj.arr[length] = bul.id +'|'+ buffTop + '|' + buffLeft;
+                }
+                document.body.appendChild(bul);
+            }},1000)
+    }
+    CreateflyD(flyD);
+    /*让子弹运动*/
+    function moveflyD(){
+        for (var i=0;i<flyD.arr.length ;i++){
+            var  newArr = flyD.arr[i].split('|');
+            /*获得div*/
+            var airPlane = document.getElementById(newArr[0]);
+            newArr[1] = parseInt(newArr[1])+2;
+            airPlane.style.top = newArr[1] +'px';
+            flyD.arr[i] = newArr[0] +'|'+newArr[1] +'|'+ newArr[2];
+            if (newArr[1] >= (box.offsetHeight-12)){
+                airPlane.parentNode.removeChild(airPlane);
+                flyD.arr.splice(i,1);
+            }
+        }
+    }
+    setInterval(function () {
+
+        /*子弹运动*/
+        moveBullet();
+        /*敌机运动*/
+        moveflyD();
+        /*遇到子弹消失*/
+        for(var i = 0; i<flyD.arr.length; i++){
+            var  newArr1 = flyD.arr[i].split('|');
+            var airPlane = document.getElementById(newArr1[0]);
+            var Xbegin = parseInt(newArr1[2]);
+            var XEnd = parseInt(newArr1[2]) + flyD.width;
+            var Ybegin =parseInt(newArr1[1]);
+            var YEnd = parseInt(newArr1[1]) + flyD.height;
+            for(var j = 0; j<bulletM.arr.length; j++){
+                var  newArr2 = bulletM.arr[j].split('|');
+                /*获得div*/
+                var bullet = document.getElementById(newArr2[0]);
+                var bulletX = parseInt(newArr2[2]);
+                var bulletY = parseInt(newArr2[1]);
+                var Xcheck = bulletX >= Xbegin && bulletX <= XEnd;
+                var Ycheck = bulletY >= Ybegin && bulletY <= YEnd;
+
+                if(Xcheck&&Ycheck){
+                    airPlane.parentNode.removeChild(airPlane);
+                    flyD.arr.splice(i,1);
+
+                    bullet.parentNode.removeChild(bullet);
+                    bulletM.arr.splice(j,1);
+
+
+                }}}},10)
+</script>
+</body>
+</html>

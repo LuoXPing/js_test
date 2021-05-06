@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<!--全局变量-->
+<script type="text/html">
+    var instance;
+    function Factory() {
+
+    if (instance){
+    return instance;
+    }
+    instance = this;
+    instance.name = '张三';
+    instance.age =12;
+    }
+    var f1 = new Factory();
+    var f2 = new Factory();
+    console.log(f1 === f2);
+</script>
+<!--及时函数-->
+<script type="text/html">
+    (function (w) {
+        var instance;
+        function Factory() {
+
+            if (instance){
+                return instance;
+            }
+            instance = this;
+            instance.name = '张三';
+            instance.age =12;
+        }
+        w.Factory = Factory;
+    })(window);
+    var f1 = new Factory();
+    var f2 = new Factory();
+    console.log(f1 === f2);
+</script>
+<!--惰性函数-->
+<script >
+    function Factory() {
+        var oldProtoType = Factory.prototype;
+       var instance = null;
+        Factory = function (){
+            return instance;
+        };
+        instance = new Factory();
+        instance.prototype = oldProtoType;
+        instance.name = '张三';
+        instance.age =12;
+        return instance;
+    }
+    var f1 = new Factory();
+    var f2 = new Factory();
+    console.log(f1 === f2);
+</script>
+</body>
+</html>

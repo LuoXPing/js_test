@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        #word{
+            width: 200px;
+            padding: 10px;
+            position: absolute;
+            left: 200px;
+            top: 100px;
+            border: 1px solid #ccc;
+        }
+        #share_weibo{
+            width: 150px;
+            padding: 5px;
+            position: absolute;
+            left: 0;
+            top: 400px;
+            border: 1px solid #ccc;
+            background-color: palegoldenrod;
+            color: cornflowerblue;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+<p id="word">在新闻发生的第一时间，李克强就批示有关部门，要“以小窥大”，进一步考虑如何通过简政放权、放管结合、优化服务，破除制约社会生产力发展和就业创业的不合理束缚，以主动服务的精神激发市场活力。而11月21日在上海召开的座谈会上，总理再次通过两家小食店的故事“以小窥大”，点题下一阶段政府职能转变和深化“放管服”改革工作。</p>
+
+<div id="share_weibo">新闻发生的第一时间</div>
+<script src="js/myFunc.js"></script>
+<script >
+    window.onload = function () {
+        var selectedWord;
+        $("word").onmouseup = function (event ) {
+            var e = event||window.event;
+            if (window.getSelection()){
+                selectedWord = window.getSelection().toString();
+            }
+            else{
+                selectedWord = document.selection.createRange().text;
+            }
+
+            if (selectedWord !=''){
+                $("share_weibo").innerText = selectedWord;
+                $("share_weibo").style.display = "block";
+                $("share_weibo").style.left = e.clientX +'px';
+                $("share_weibo").style.top = e.clientY + 'px';
+            }
+        };
+        document.onmousedown =function (event) {
+            var e = event||window.event;
+            var targetId;
+          if (e.target){
+              targetId = e.target.id;
+          }else { targetId = e.srcElement.id;   }
+
+          if (targetId != "share_weibo") {
+              $("share_weibo").style.display = "none";
+          }else{
+              window.location.href = 'http://v.t.sina.com.cn/share/share.php?searchPic=false&title=' + selectedWord + '&url=https://github.com/xuanzhihua';
+          }
+
+          window.getSelection?window.getSelection().removeAllRanges():document.selection.empty();
+        }
+        
+    }
+</script>
+</body>
+</html>

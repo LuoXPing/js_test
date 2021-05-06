@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+        html , body , ul{
+            width: 100%;
+            height: 100%;
+        }
+        #box{
+            position: relative;
+        }
+        #box li{
+            position: absolute;
+            width: 250px;
+            height: 360px;
+            box-shadow: 0 0 10px #000;
+            transition: all 1s;
+        }
+        #box li.current{
+
+            transform: rotate(0deg) translate(-50%,-50%) scale(1.5, 1.5)!important;
+            left: 50% !important;
+            top: 50% !important;
+            z-index: 99;
+        }
+    </style>
+</head>
+<body>
+<ul id="box">
+</ul>
+
+<script src="js/Underscore-min.js"></script>
+<script>
+    var box = document.getElementById("box");
+
+//添加元素
+    for (var i=0; i<10; i++){
+        var li = document.createElement("li");
+        box.appendChild(li);
+        li.style.left
+        var img = document.createElement("img");
+        var num = i+1;
+        img.src = 'images/pic'+ num +'.jpg'
+        li.appendChild(img);
+
+    };
+    //改变位置
+    var screenW = document.documentElement.clientWidth - 250;
+    var screenH = document.documentElement.clientHeight - 360;
+    var list = box.children;
+    for (var i = 0 ; i<list.length ; i++){
+        var li = list[i];
+       li.style.left = _.random(0,screenW) +'px';
+       li.style.top = _.random(0,screenH) +'px';
+       var rate = _.random(0, 360);
+       li.style.transform = 'rotate('+rate+'deg)'
+        //点击事件
+
+        li.onclick = function () {
+            for (var i = 0 ; i<list.length ; i++) {
+                list[i].className = '';
+            }
+            this.className = 'current';
+        }
+    }
+
+</script>
+
+</body>
+</html>

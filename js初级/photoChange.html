@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<style>
+     img{
+        width: 400px;
+        height: 400px;
+        margin-left: 60px;
+        margin-bottom: 20px;
+    }
+    p{
+        color: cornflowerblue;
+        font-weight: bolder;
+        margin-left: 150px;
+        margin-top: 20px;
+    }
+    #small a{
+        display: inline-block;
+        float: left;
+
+    }
+    #small a img{
+        width: 100px;
+        height: 100px;
+    }
+</style>
+<body>
+<p class="des">蝴蝶</p>
+<img class="bigimg" src="images/butterfly.jpg">
+<div id="small">
+    <a href="images/butterfly.jpg" title="蝴蝶"><img src="images/butterfly.jpg" ></a>
+    <a href="images/cat.png" title="阿猫"><img src="images/cat.png" ></a>
+    <a href="images/childern.JPG" title="小姑娘"><img src="images/childern.JPG" ></a>
+    <a href="images/团子.png" title="团子"><img src="images/团子.png" ></a>
+    <a href="images/earth.jpg" title="地球"><img src="images/earth.jpg" ></a>
+</div>
+<script>
+    window.onload =function () {
+        var smallIcon = document.getElementById("small");
+        var aList = smallIcon.getElementsByTagName("a");
+        var p = document.getElementsByClassName("des")[0];
+        var bigImg = document.getElementsByClassName("bigimg")[0];
+        console.log(bigImg);
+        for(var i = 0; i<aList.length; i++){
+            aList[i].onclick = function () {
+                p.innerText = this.title;
+                bigImg.src = this.href;
+                console.log(this.href);
+                return false;
+            }
+        }
+    }
+</script>
+</body>
+</html>

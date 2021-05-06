@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<style>
+
+</style>
+<body>
+<label > 添加图片：</label>
+<input type="file" id="file">
+
+<script>
+    window.onload = function () {
+        var file = document.getElementById("file");
+        file.onchange = function (){
+           var content = this.value;
+           var fix = content.substring(content.lastIndexOf("."));
+            var lowfix = fix.toLowerCase();
+            if (lowfix == '.jpg' || lowfix == '.jpeg' || lowfix == '.png' || lowfix == '.gif')
+                alert("格式正确");
+            else   alert("格式不正确");
+        }
+
+    }
+
+</script>
+</body>
+</html>

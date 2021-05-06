@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<style>
+    *{
+        margin: 0;
+        padding: 0;
+        border: none;
+        list-style: none;
+    }
+    #box{
+        width: 800px;
+        height: 200px;
+        border: 1px solid #ccc;
+        overflow: hidden;
+        position: relative;
+        margin: 100px auto;
+    }
+    #box #box_top{
+        width: 2600px;
+        position: absolute;
+        top: 20px;
+        left: 0;
+    }
+    #box #box_top li{
+        float: left;
+    }
+    #box_bottom{
+        height: 25px;
+        width: 800px;
+        background-color: #ccc;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+    }
+    #box_bottom span{
+        width: 50px;
+        height: 25px;
+        background-color: orange;
+       border-radius: 12px;
+        position: absolute;
+        left: 0;
+        top: 0;
+    }
+
+</style>
+<body>
+<div id="box">
+    <ul id="box_top">
+        <li><img src="images/img1.jpg" alt=""></li>
+        <li><img src="images/img2.jpg" alt=""></li>
+        <li><img src="images/img3.jpg" alt=""></li>
+        <li><img src="images/img4.jpg" alt=""></li>
+        <li><img src="images/img5.jpg" alt=""></li>
+        <li><img src="images/img6.jpg" alt=""></li>
+        <li><img src="images/img7.jpg" alt=""></li>
+        <li><img src="images/img8.jpg" alt=""></li>
+        <li><img src="images/img1.jpg" alt=""></li>
+        <li><img src="images/img2.jpg" alt=""></li>
+        <li><img src="images/img3.jpg" alt=""></li>
+        <li><img src="images/img4.jpg" alt=""></li>
+        <li><img src="images/img5.jpg" alt=""></li>
+        <li><img src="images/img6.jpg" alt=""></li>
+        <li><img src="images/img7.jpg" alt=""></li>
+        <li><img src="images/img8.jpg" alt=""></li>
+        <li><img src="images/img7.jpg" alt=""></li>
+        <li><img src="images/img8.jpg" alt=""></li>
+        <li><img src="images/img1.jpg" alt=""></li>
+        <li><img src="images/img2.jpg" alt=""></li>
+    </ul>
+    <div id="box_bottom">
+        <span id="mask"></span>
+    </div>
+</div>
+<script>
+    window.onload = function () {
+        var box = document.getElementById("box");
+        var box_top = box.children[0];
+        var box_bottom = box.children[1];
+        var mask = box_bottom.children[0];
+        //宽度
+        var width = ( box.offsetWidth/box_top.offsetWidth ) * box_bottom.offsetWidth;
+        mask.style.width = width + 'px';
+
+        box_bottom.onmousedown = function ( event) {
+            var event = event||window.event;
+            var beginX = event.clientX - box_bottom.offsetLeft;
+            document.onmousemove = function (event) {
+                var event = event||window.event;
+
+                var endX = event.clientX -beginX;
+                if (endX <= 0){
+                    endX = 0;
+                } else if( endX >= box_bottom.offsetWidth -mask.offsetWidth)
+                {
+                    endX = box_bottom.offsetWidth -mask.offsetWidth;
+                }
+                //图片移动长度
+                var moveX = (box_top.offsetWidth - box.offsetWidth)/(box_bottom.offsetWidth - mask.offsetWidth)*endX;
+                box_top.style.left = -moveX +'px';
+                mask.style.left = endX + 'px';
+                return false;
+            };
+            document.onmouseup = function () {
+                document.onmousemove = null;
+            }
+        }
+
+    }
+</script>
+
+</body>
+</html>

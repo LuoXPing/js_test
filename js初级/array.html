@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+   /* var arr1=["张飞","关羽","刘备"];
+    console.log(arr1.join("|"));*/
+    var newArr=new Array();
+   var newArr2=[0,0,0,0.0];
+    var arr2=['a','a','b','b','d','b','c','a'];
+    for (var i=0;i<arr2.length;i++){
+        var t=arr2[i];
+        if (newArr.length == 0) newArr[0] = t;
+        for (var j=0;j<newArr.length;j++){
+            if (newArr[j] == t ) break;
+        }
+        if (newArr[j] == t ) newArr2[j]++;
+        else {
+            newArr[j++] = t;
+            newArr2[j]++;
+        }
+
+
+
+    }
+    console.log(newArr);
+   console.log(newArr2);
+</script>
+</body>
+</html>

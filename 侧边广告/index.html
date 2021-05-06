@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        body{
+            position: relative;
+        }
+        #advertise{
+            width: 150px;
+            position: absolute;
+            left: 5px;
+            top: 150px;
+        }
+        #advertise img{
+            width: 100%;
+        }
+        #box{
+            width: 500px;
+            height: 2000px;
+            background-color: papayawhip;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+<body>
+<div id="advertise">
+    <img src="images/float.jpg" alt="">
+</div>
+<div id="box">
+
+</div>
+<script src="js/myFunc.js"></script>
+<script>
+    window.onload =function () {
+        var ad_top = $("advertise").offsetTop;
+        console.log(ad_top);
+        var star=0 ,end=0,timer=null;
+        window.onscroll = function () {
+            clearInterval(timer);
+            var sc_Height = scroll().top;
+            end = sc_Height + ad_top;
+            //缓动动画
+            timer = setInterval(function () {
+                star = star + (end - star )*0.5;
+                $("advertise").style.top = star +'px';
+            },20);
+            if (Math.round(star) == end){
+                clearInterval(timer);
+            }
+        }
+    }
+
+</script>
+</body>
+</html>

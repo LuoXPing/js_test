@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script type="text/html">
+    var gender =String(prompt("请输入性别（男/女）"));
+    if ( gender != "男" &&  gender != "女") {
+        alert("请输入正确的性别");
+    }
+    var height = Number(prompt("请输入身高(单位:cm)"));
+    var weight = Number(prompt("请输入体重(单位:g)"));
+    var test;
+    if( gender == "男" )
+    {
+        if (weight>height-103 && weight< height-100+3)
+        {
+            alert("男标准！");
+        }
+        else{
+            alert("男不好");
+        }
+
+    }
+    else( gender == "女" )
+    {
+        if (height-110-3< weight < height-110+3)
+        {
+            alert("女标准！");
+        }
+        else{
+            alert("不好");
+        }
+    }
+
+
+</script>
+<script type="text/html">
+    var number = Number( prompt("请输入一个整数"));
+    if ( 0 == number%2){
+        alert("偶数");
+    }
+    else{
+        alert("奇数");
+    }
+</script>
+<script type="text/html">
+    var num = Number ( prompt("请输入数字（1-7）"));
+    if ( 3 < num ){
+        if ( 5 < num )
+        {
+            if ( 6 == num )  alert("今天星期六");
+            else alert("今天星期日");
+        }
+        else{
+            if ( 5 == num )  alert("今天星期五");
+            else alert("今天星期四");
+        }
+
+    }
+    else{
+        if ( 2 < num ) alert("今天星期三");
+        else if( 2 == num )  alert("今天星期二");
+        else  alert("今天星期一");
+    }
+</script>
+<script type="text/html">
+    var num = Number ( prompt("请输入月份（1-12）"));
+    if ( 1 == num ||2 == num ||12 == num)
+        alert("春季");
+    else if (3 <= num && 5 >= num )
+        alert("夏季");
+    else if (6 <= num && 8 >= num )
+        alert("秋季");
+    else if (9 <= num && 11 >= num )
+        alert("冬季");
+</script>
+<script type="text/html">
+    var num1 = Number ( prompt("请输入一个数"));
+    var num2 = Number ( prompt("请输入一个数"));
+    num1 > num2 ? alert( num1):alert( num2);
+</script>
+<script type="text/html">
+    var num1 = Number ( prompt("请输入一个数"));
+   if ( num%100 == 0 && num%4 == 0){
+       alert("闰年");
+   }
+</script>
+<script type="text/html">
+    var i,j;
+    for (i=1 ; i<=2 ;i++ ){
+        window.console.log("好友列表"+i);
+        for (j=1 ; j<=3 ;j++ )
+            window.console.log("      好友"+j);
+    }
+</script>
+<script type="text/html">
+    var num=0.08,count;
+    for (count=0 ; num < 884813 ;count++ ){
+        num = num * 2;
+    }
+    alert(count);
+</script>
+<script type="text/html">
+    var num1,num2,num3;
+    for (var i = 100 ;i < 1000 ;i++ ){
+        num1 =  Math.floor(i/100) ;
+        num2 =  Math.floor((i/10)%10);
+        num3 = i%10;
+        var test = num1*num1*num1+num2*num2*num2+num3*num3*num3;
+        if ( i == test){
+            window.document.write( i );
+            window.document.write("<br/>");
+        }
+    }
+</script>
+<script type="text/html">
+    for (var i = 1 ;i < 10 ;i++ ){
+        for (var j = 1 ;j <= i ;j++ ){
+            window.document.write( j+" * "+ i +"="+ i*j +"  |  ");
+        }
+        window.document.write("<br/>");
+    }
+
+</script>
+<script type="text/html">
+    function avg() {
+        var sum=0;
+        for (var i=0; i< arguments.length ; i++)
+        {
+            sum+=arguments[i];
+        }
+        return sum/arguments.length;
+    }
+    var test=avg(1,2,3,4,5,6,7,8,9,10);
+    console.log(test);
+</script>
+<script type="text/html">
+    var name="zhan";
+    function hhh(){
+        console.log(name);
+    }
+
+    hhh();
+</script>
+<script>
+    function Circle(option) {
+        this._init(option);
+    }
+    Circle.prototype={
+        //属性
+        _init : function (option) {
+            this.radius = option.radius;
+            this.area = option.area;
+            this.perimeter = option.perimeter;
+        },
+        //方法
+        countArea : function (radius) {
+            console.log("面积： "+ 3.14 * radius* radius);
+        },
+        countPerimeter : function (radius) {
+            console.log("周长： "+2 * 3.14 * radius);
+        }
+    };
+
+    var circle1 = new Circle({ radius : 2 });
+    circle1.countArea(1);
+    circle1.countPerimeter(2);
+</script>
+</body>
+</html>

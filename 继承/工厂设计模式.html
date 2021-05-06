@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<!--简单工厂-->
+<script type="text/html">
+    function Factory(water ,bean){
+       var obj = new Object();
+        obj.water = water ;
+        obj.bean = bean;
+        obj.bili = bean/water;
+        return obj;
+    }
+    var coffee1 = new Factory(10,2);
+    console.log("制作了一杯咖啡，浓度为：",coffee1.bili);
+    var coffee2 = new Factory(10,5);
+    console.log("制作了一杯咖啡，浓度为：",coffee2.bili);
+</script>
+<script>
+    function Factory(){ }
+    Factory.prototype.makeJuice = function(type,meta){
+        if (! typeof this[type] === 'function') {
+            console.log("目前不能生产"+type+"这种饮料")
+        }else{
+            this[type].prototype = Factory.prototype;
+            this[type].call(meta);
+        }
+    };
+
+    /*添加生产线*/
+    Factory.prototype.makeLine = function(obj){
+        for (var key in obj){
+            this[key] = obj[key];
+        }
+    }
+    Factory.prototype.makeLine({
+        "Apple":function (meta) {
+            console.log("制作了一杯苹果汁,材料有：",meta);
+        },
+        "Pear":function (meta) {
+            console.log("制作了一杯梨汁,材料有：",meta);
+        }
+    });
+
+    var apple = new Factory();
+    apple.makeJuice("Apple","苹果");
+    console.log(apple.constructor.name);
+</script>
+</body>
+</html>

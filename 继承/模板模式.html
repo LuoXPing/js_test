@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+     function Fruit() {}
+    Fruit.prototype.make = function () {
+        this.water();
+        this.cailiao();
+        this.jiaoban();
+        this.liangliang();
+
+    }
+    Fruit.prototype.water = function () {
+        console.log('烧好开水, 到开水');
+    };
+    Fruit.prototype.cailiao = function () {
+        throw new Error('必须由子类重写这个方法');
+    };
+    Fruit.prototype.jiaoban = function () {
+        console.log('搅拌搅拌');
+    };
+    Fruit.prototype.liangliang = function () {
+        console.log('凉一下, 就可以喝了');
+    }
+
+   function  Apple() {}
+   Apple.prototype = new Fruit();
+    var apple =new Apple();
+     Apple.prototype.cailiao = function (){
+        console.log("放入苹果");
+    }
+    apple.make();
+
+</script>
+
+</body>
+</html>

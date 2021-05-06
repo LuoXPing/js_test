@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<style>
+    *{
+        margin: 0;
+        padding: 0;
+    }
+    #box{
+        width: 800px;
+        height: 600px;
+        background: url("images/sky.png");
+        position: relative;
+        overflow: hidden;
+    }
+    #bird{
+        width: 34px;
+        height: 25px;
+        background: url("images/birds.png");
+        position: absolute;
+        left: 10px;
+    }
+    p{
+        font-size: 20px;
+        background-color: paleturquoise;
+        width: 800px;
+        text-align: center;
+    }
+    #mask{
+        width: 800px;
+        height: 600px;
+        position: absolute;
+        left: 0;
+        top: 0;
+        background-color: rgba(0,0,0,0.5);
+        z-index: 99;
+        display: none;
+    }
+    button{
+        width: 200px;
+        height: 80px;
+        position: absolute;
+        left: 40%;
+        top: 40%;
+        z-index: 999;
+        font-size: 40px;
+        box-shadow: 1px 1px #cccccc;
+    }
+</style>
+<body>
+<div id="box">
+    <div id="bird"></div>
+    <div id="mask">
+        <button>游戏结束</button>
+    </div>
+</div>
+
+<p>点击鼠标上升</p>
+<script>
+    var sky = document.getElementById("box");
+    var bird = document.getElementById("bird");
+    var birdValue ={
+        speedX: 5,
+        speedY: 0,
+        X:bird.offsetLeft,
+        Y:bird.offsetTop,
+        W:bird.offsetWidth,
+        H:bird.offsetHeight
+    };
+    var mask = document.getElementById("mask");
+    var isRunning = true;
+    setInterval(function () {
+        birdValue.speedY += 2;
+        birdValue.speedX -= 5;
+       if ( isRunning ){
+           /*背景运动*/
+           sky.style.backgroundPositionX = birdValue.speedX+ 'px';
+           /*鸟运动*/
+           bird.style.top = birdValue.speedY +'px';
+       }
+        if (bird.offsetTop < 0 ){
+            bird.style.top = 0 + 'px';
+            isRunning = false;
+            mask.style.display = 'block';
+        } else  if( bird.offsetTop > sky.offsetHeight - birdValue.H ){
+            bird.style.top = sky.offsetHeight - birdValue.H  + 'px';
+            isRunning = false;
+            mask.style.display = 'block';
+        };
+    },30);
+    /*点击升高*/
+    document.onclick =function () {
+        birdValue.speedY -= 15;
+    }
+
+    /*创建管道*/
+    function createPipe(pos) {
+        var pipeHeight = 200+ Math.random()*100;
+        var upPipe =  document.createElement("div");
+        var x=pos;
+
+        upPipe.style.position = 'absolute';
+        upPipe.style.left = pos+ 'px';
+        upPipe.style.top = 0 + 'px';
+        upPipe.style.width = 52 + 'px';
+        upPipe.style.height = pipeHeight + 'px';
+        upPipe.style.background = 'url("images/pipe1.png") no-repeat center  top';
+        sky.appendChild(upPipe);
+        /*下管道*/
+        var downPipe =  document.createElement("div");
+        downPipe.style.position = 'absolute';
+        downPipe.style.left = pos + 'px';
+        downPipe.style.width = 52 + 'px';
+        downPipe.style.height =  sky.offsetHeight-pipeHeight-200 + 'px';
+        downPipe.style.top = pipeHeight + 200 + 'px';
+        downPipe.style.background = 'url("images/pipe2.png") no-repeat center  bottom ';
+        sky.appendChild(downPipe);
+
+        /*管道动起来*/
+        setInterval(function () {
+            if (isRunning){
+                x-=2;
+                upPipe.style.left = x + 'px';
+                downPipe.style.left = x + 'px';
+                if (x < -52){
+                    x = sky.offsetWidth;
+                }/*碰触管道*/
+                var isTouchT = birdValue.X +  birdValue.W  > upPipe.offsetLeft
+                    && birdValue.X < upPipe.offsetLeft+upPipe.offsetWidth
+                    && bird.offsetTop< upPipe.offsetHeight;
+                var isTouchD = birdValue.X + birdValue.W  > upPipe.offsetLeft
+                    && birdValue.X < upPipe.offsetLeft+upPipe.offsetWidth
+                    && bird.offsetTop > sky.offsetHeight-downPipe.offsetHeight;
+                if (isTouchT||isTouchD) {
+                    isRunning = false;
+                }
+            }else{
+                mask.style.display = 'block';
+            }
+            },30);
+
+    }
+
+    createPipe(400);
+    createPipe(600);
+    createPipe(800);
+    createPipe(1000);
+
+</script>
+</body>
+</html>

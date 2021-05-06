@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    /*图书*/
+    function Book(bookId,bookName,bookPrice,oldLevel) {
+        this.bookId = bookId;
+        this.bookName = bookName;
+        this. bookPrice = bookPrice;
+        this.oldLevel = oldLevel;
+    }
+    Book.prototype.desc = function () {
+        return "书号："+ this.bookId + ",书名"+ this.bookName + ",价格" +this. bookPrice+ ",新旧程度" + this.oldLevel;
+    }
+    /*图书馆*/
+    function Library(LibraryName) {
+        this.LibraryName = LibraryName;
+        var store = [];
+        /*检查新旧程度*/
+        function oldLevelCheck(book) {
+            if (book.oldLevel<=0){
+                book.oldLevel = 0;
+                return true;
+            }
+            return false;
+        }
+        /*存书*/
+       this.saveBook =function(book){
+            if (oldLevelCheck(book)){
+                console.log("图书馆：书太旧了不能存入");
+            }
+            else{
+                store.push(book);
+                console.log("图书馆：存入成功,"+book.desc());
+            }
+        }
+        /*借书*/
+        this.borrowBook =function(bookID){
+            for (var i=0;i<store.length;i++){
+                var bookobj = store[i];
+                if (bookID === bookobj.bookId) {
+                   break;
+                }
+            }
+            if (i == store.length){
+                console.log("图书馆：没有该书,书号："+bookID);
+                return ;
+            }
+            var borrowBook = store[i];
+            store.splice(i,1);
+            console.log("图书馆：成功借出"+borrowBook.desc());
+            return borrowBook;
+
+        }
+        /*查询所有的书*/
+        this.queryAll = function () {
+            var result = "所有书籍如下：\n";
+            for (var i=0;i<store.length;i++){
+                var bookobj = store[i];
+               result += bookobj.desc() +";\n";
+            }
+            console.log(result);
+            return store;
+        }
+        /*根据书号查询书本*/
+        this.queryByID = function (bookID) {
+            for (var i = 0; i < store.length; i++) {
+                var bookobj = store[i];
+                if (bookID == bookobj.bookId) {
+                    break;
+                }
+            }
+            if (i === store.length) {
+                console.log("图书馆：没有该书。书号："+bookID);
+                return;
+            }
+            var borrowBook = store[i];
+            console.log("图书馆：该书信息" + borrowBook.desc());
+            return borrowBook;
+        };
+    }
+</script>
+<script>
+    /*人*/
+    function Person(name,age,oldStep) {
+        this.name = name;
+        this.age = age;
+        this.oldStep = oldStep;
+        this.bookStore = [];
+    }
+    Person.prototype.borrow = function (book) {
+       console.log("成功借入一本书："+book.desc());
+       this.bookStore.push(book);
+    }
+    /*查书*/
+    Person.prototype.queryByID = function (bookID) {
+        for (var i = 0; i < this.bookStore.length; i++) {
+            var bookobj = this.bookStore[i];
+            if (bookID == bookobj.bookId) {
+                break;
+            }
+        }
+        if (i === this.bookStore.length) {
+            console.log("读者：没有该书。书号："+bookID);
+            return null ;
+        }
+        var borrowBook = this.bookStore[i];
+
+        console.log("读者：该书信息" + borrowBook.desc());
+        return borrowBook;
+    };
+    /*读书*/
+    Person.prototype.ReadBook = function (bookID){
+        for (var i = 0; i < this.bookStore.length; i++) {
+            var bookobj = this.bookStore[i];
+            if (bookID == bookobj.bookId) {
+                break;
+            }
+        }
+        if (i === this.bookStore.length) {
+            console.log("读者：没有该书。书号："+bookID);
+        }else{
+            var borrowBook = this.bookStore[i];
+            borrowBook.oldLevel -=this.oldStep;
+            console.log("成功阅读一本书:  "+borrowBook.bookName);
+            console.log(borrowBook.desc());
+        }
+    }
+    /*还书*/
+    Person.prototype.ReBack = function (bookID){
+        for (var i = 0; i < this.bookStore.length; i++) {
+            var bookobj = this.bookStore[i];
+            if (bookID == bookobj.bookId) {
+                break;
+            }
+        }
+        if (i === this.bookStore.length) {
+            console.log("读者：没有该书。书号："+bookID);
+        }else{
+            var borrowBook = this.bookStore[i];
+            borrowBook.oldLevel -=this.oldStep;
+            console.log("成功归还一本书:  "+borrowBook.bookName);
+            console.log(borrowBook.desc());
+            this.bookStore.splice(i,1);
+        }
+    }
+</script>
+<script>
+    /*老师*/
+    function Teacher(name,age,oldStep,money) {
+        Person.call(this,name,age,oldStep);
+        this.money = money;
+    }
+    function Type() {}
+    var TeacherType = new Type();
+    TeacherType = Person.prototype;
+    Teacher.prototype = TeacherType;
+    Teacher.prototype.constructor = Teacher;
+</script>
+<script>
+    var book1 = new Book('TS001','JS基础',45.3,10);
+    var book2 = new Book('TS002','JS进阶',67.5,8);
+    var book3 = new Book('TS003','JS实践',42,9);
+    var book4 = new Book('TS004','JS体验',87,10);
+    /*创建图书馆*/
+    var library = new Library("星月");
+    library.saveBook(book1);
+    library.saveBook(book2);
+    library.saveBook(book3);
+    library.saveBook(book4);
+    /*借出*/
+    library.borrowBook('TS001');
+    library.borrowBook("TS005");
+    /*差所有的书*/
+    library.queryAll();
+    /*查一本书*/
+    library.queryByID("TS003");
+    /*人*/
+    var  p = new Person("张三",29,3);
+    p.borrow(book1);
+    p.queryByID("TS001");
+    p.queryByID("TS002");
+    p.ReadBook("TS001");
+    p.ReBack("TS001");
+    p.queryByID("TS001");
+    /*老师*/
+    console.log("------------------------");
+    var  teacher = new Teacher("李四",29,2);
+    teacher.borrow(book1);
+    teacher.queryByID("TS001");
+    teacher.queryByID("TS002");
+    teacher.ReadBook("TS001");
+    teacher.ReBack("TS001");
+    teacher.queryByID("TS001");
+
+</script>
+</body>
+</html>
